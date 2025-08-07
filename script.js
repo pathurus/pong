@@ -120,9 +120,13 @@ function update() {
 }
 
 function aiMove(player) {
-    // Simple AI with a reaction delay
+    // Simple AI with a reaction delay and randomness
     const targetY = ball.y - player.height / 2;
-    const dy = (targetY - player.y) * player.reaction;
+    let dy = (targetY - player.y) * player.reaction;
+
+    // Add randomness to the movement
+    const randomFactor = (Math.random() - 0.5) * 5; // Adjust the multiplier for more/less randomness
+    dy += randomFactor;
 
     // Add a bit of imperfection
     if (Math.abs(dy) > 2) {
@@ -195,6 +199,18 @@ function resetBall() {
 
 // Initial render
 render();
+
+// Music controls
+const backgroundMusic = document.getElementById('background-music');
+const musicToggleButton = document.getElementById('music-toggle');
+
+musicToggleButton.addEventListener('click', () => {
+    if (backgroundMusic.paused) {
+        backgroundMusic.play();
+    } else {
+        backgroundMusic.pause();
+    }
+});
 
 // Keyboard controls
 document.addEventListener('keydown', (event) => {
